@@ -1,0 +1,26 @@
+<annotation>
+	<folder>JPEGImages</folder>
+	<filename>IMG_3066.JPG</filename>
+	<path>/Users/apple/work/study/ml/custom_yolo/light_data/JPEGImages/IMG_3066.JPG</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>150</width>
+		<height>84</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>bulb</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>36</xmin>
+			<ymin>11</ymin>
+			<xmax>92</xmax>
+			<ymax>68</ymax>
+		</bndbox>
+	</object>
+</annotation>
