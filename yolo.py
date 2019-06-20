@@ -44,6 +44,9 @@ class YOLO(object):
         self.sess = K.get_session()
         self.boxes, self.scores, self.classes = self.generate()
 
+    def get_model(self):
+        return self.yolo_model
+
     def _get_class(self):
         classes_path = os.path.expanduser(self.classes_path)
         with open(classes_path) as f:
@@ -69,8 +72,9 @@ class YOLO(object):
         try:
             self.yolo_model = load_model(model_path, compile=False)
         except:
-            self.yolo_model = tiny_yolo_body(Input(shape=(None,None,3)), num_anchors//2, num_classes) \
-                if is_tiny_version else yolo_body(Input(shape=(None,None,3)), num_anchors//3, num_classes)
+            # Modify shape=(None, None, 3) -> to shape=(416, 416, 3)
+            self.yolo_model = tiny_yolo_body(Input(shape=(416, 416, 3)), num_anchors//2, num_classes) \
+                if is_tiny_version else yolo_body(Input(shape=(416, 416, 3)), num_anchors//3, num_classes)
             self.yolo_model.load_weights(self.model_path) # make sure model, anchors and classes match
         else:
             assert self.yolo_model.layers[-1].output_shape[-1] == \
