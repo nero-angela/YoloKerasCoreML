@@ -1,9 +1,5 @@
 # ML Model
 *.mlmodel
-*.h5
-
-*.jpg
-*.png
 *.weights
 *.h5
 logs/
