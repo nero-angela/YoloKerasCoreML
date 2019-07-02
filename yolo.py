@@ -68,6 +68,8 @@ class YOLO(object):
         # Load model, or construct model and load weights.
         num_anchors = len(self.anchors)
         num_classes = len(self.class_names)
+        print('num_anchors', num_anchors)
+        print('num_classes', num_classes)
         is_tiny_version = num_anchors==6 # default setting
         try:
             self.yolo_model = load_model(model_path, compile=False)
@@ -98,6 +100,7 @@ class YOLO(object):
         self.input_image_shape = K.placeholder(shape=(2, ))
         if self.gpu_num>=2:
             self.yolo_model = multi_gpu_model(self.yolo_model, gpus=self.gpu_num)
+        print("self.yolo_model.output", self.yolo_model.output)
         boxes, scores, classes = yolo_eval(self.yolo_model.output, self.anchors,
                 len(self.class_names), self.input_image_shape,
                 score_threshold=self.score, iou_threshold=self.iou)
@@ -127,6 +130,10 @@ class YOLO(object):
                 self.input_image_shape: [image.size[1], image.size[0]],
                 K.learning_phase(): 0
             })
+        print('shape')
+        print('out_boxes', out_boxes.shape, out_boxes)
+        print('out_scores', out_scores.shape, out_scores)
+        print('out_classes', out_classes.shape, out_classes)
 
         print('Found {} boxes for {}'.format(len(out_boxes), 'img'))
 
